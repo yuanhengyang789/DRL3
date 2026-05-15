@@ -1,0 +1,22 @@
+<launch>
+  <arg name="gui" default="true"/>
+  <arg name="open_rviz" default="false"/>
+
+  <!-- Gazebo world -->
+  <include file="$(find multi_robot_scenario)/launch/TD3_world.launch">
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- Three Pioneer3DX robots -->
+  <include file="$(find multi_robot_scenario)/launch/pioneer3dx_multi3.gazebo.launch"/>
+
+  <!-- Optional RViz -->
+  <group if="$(arg open_rviz)">
+    <node
+      pkg="rviz"
+      type="rviz"
+      name="rviz"
+      args="-d $(find multi_robot_scenario)/launch/pioneer3dx_multi3.rviz"
+    />
+  </group>
+</launch>
