@@ -1,0 +1,43 @@
+<launch>
+
+  <arg name="robot_name" default="p3dx" />
+  <arg name="robot_position" default="-x -1.0 -y 5.0 -z 0.01" />
+  <arg name="robot_namespace" default="p3dx" />
+  <arg name="publish_global_tf" default="false" />
+
+  <param
+    name="robot_description"
+    command="$(find xacro)/xacro '$(find multi_robot_scenario)/xacro/p3dx/pioneer3dx.xacro' robot_namespace:=$(arg robot_namespace) frame_prefix:=$(arg robot_name)"
+  />
+
+  <node
+    name="urdf_spawner"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    respawn="false"
+    output="screen"
+    args="-urdf -model $(arg robot_name) -param robot_description -robot_namespace $(arg robot_namespace) $(arg robot_position)"
+  />
+
+  <group if="$(arg publish_global_tf)">
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+      <param name="publish_frequency" type="double" value="30.0"/>
+      <param name="tf_prefix" type="string" value="$(arg robot_name)"/>
+      <remap from="tf" to="/tf"/>
+      <remap from="tf_static" to="/tf_static"/>
+    </node>
+  </group>
+
+  <group unless="$(arg publish_global_tf)">
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+      <param name="publish_frequency" type="double" value="30.0"/>
+      <param name="tf_prefix" type="string" value="$(arg robot_name)"/>
+    </node>
+  </group>
+
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0"/>
+  </node>
+
+</launch>
+

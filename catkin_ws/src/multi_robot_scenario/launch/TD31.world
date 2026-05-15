@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+<world name="10m_safe_world">
+
+  <!-- 光照 -->
+  <include>
+    <uri>model://sun</uri>
+  </include>
+
+  <!-- 地面 10m×10m -->
+  <model name="ground_plane">
+    <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <geometry><plane><normal>0 0 1</normal><size>10 10</size></plane></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><plane><normal>0 0 1</normal><size>10 10</size></plane></geometry>
+        <material>
+          <script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Grey</name></script>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- 木质围墙（边界） -->
+  <model name="fence">
+    <static>true</static>
+    <link name="link">
+      <collision name="n"><pose>0 5 0.5 0 0 0</pose><geometry><box><size>10 0.2 1</size></box></geometry></collision>
+      <visual name="nv"><pose>0 5 0.5 0 0 0</pose><geometry><box><size>10 0.2 1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Wood</name></script></material></visual>
+
+      <collision name="s"><pose>0 -5 0.5 0 0 0</pose><geometry><box><size>10 0.2 1</size></box></geometry></collision>
+      <visual name="sv"><pose>0 -5 0.5 0 0 0</pose><geometry><box><size>10 0.2 1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Wood</name></script></material></visual>
+
+      <collision name="e"><pose>5 0 0.5 0 0 0</pose><geometry><box><size>0.2 10 1</size></box></geometry></collision>
+      <visual name="ev"><pose>5 0 0.5 0 0 0</pose><geometry><box><size>0.2 10 1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Wood</name></script></material></visual>
+
+      <collision name="w"><pose>-5 0 0.5 0 0 0</pose><geometry><box><size>0.2 10 1</size></box></geometry></collision>
+      <visual name="wv"><pose>-5 0 0.5 0 0 0</pose><geometry><box><size>0.2 10 1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Wood</name></script></material></visual>
+    </link>
+  </model>
+
+  <!-- ===================== T 型障碍（横板 + 加长竖板） ===================== -->
+  <!-- 横板：中心 (0, 2)，尺寸 5.0×1.0×0.1，覆盖 Y∈[1.5, 2.5] -->
+  <!-- 竖板：加长 2m，总长 5.5m，顶部连接横板下边缘 Y=1.5，覆盖 Y∈[-4.0, 1.5] -->
+  <model name="t_obstacle_flat">
+    <static>true</static>
+    <pose>0 0 0.05 0 0 0</pose>
+
+    <!-- 横板 -->
+    <link name="horizontal_bar">
+      <pose>0.5 1.8 0 0 0 0</pose>
+      <collision name="collision">
+        <geometry><box><size>4.0 1 0.1</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>4.0 1 0.1</size></box></geometry>
+        <material>
+          <ambient>0.9 0.9 0.9 1</ambient>
+          <diffuse>1.0 1.0 1.0 1</diffuse>
+          <specular>0.5 0.5 0.5 1</specular>
+        </material>
+      </visual>
+    </link>
+
+    <!-- 竖板（加长至 5.5 m，中心 Y = 1.5 - 5.5/2 = -1.25） -->
+    <link name="vertical_bar">
+      <pose>0 -1.25 0 0 0 0</pose>
+      <collision name="collision">
+        <geometry><box><size>1.0 5.5 0.1</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>1.0 5.5 0.1</size></box></geometry>
+        <material>
+          <ambient>0.9 0.9 0.9 1</ambient>
+          <diffuse>1.0 1.0 1.0 1</diffuse>
+          <specular>0.5 0.5 0.5 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ===================== 顶部三个小箱子（改为木制材质） ===================== -->
+  <!-- 箱子1 -->
+  <model name="box_left">
+    <static>true</static>
+    <pose>-4 4.5 0.35 0 0 0</pose>
+    <link name="link">
+      <collision name="collision">
+        <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+        <material>
+          <script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Wood</name></script>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- 箱子2 -->
+  <model name="box_right">
+    <static>true</static>
+    <pose>3 4.5 0.35 0 0 0</pose>
+    <link name="link">
+      <collision name="collision">
+        <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+        <material>
+          <script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Wood</name></script>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- 箱子3（中央） -->
+  <model name="box_central">
+    <static>true</static>
+    <pose>0 4.5 0.35 0 0 0</pose>
+    <link name="link">
+      <collision name="collision">
+        <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+        <material>
+          <script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Wood</name></script>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- 俯视视角 -->
+  <gui>
+    <camera name="view">
+      <pose>0 0 12 0 1.5708 1.5708</pose>
+    </camera>
+  </gui>
+
+</world>
+</sdf>

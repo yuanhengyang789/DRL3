@@ -1,0 +1,704 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="10m_safe_world">
+
+    <!-- 物理引擎配置（新增） -->
+    <physics type="ode">
+      <max_step_size>0.01</max_step_size>
+      <real_time_update_rate>100</real_time_update_rate>
+    </physics>
+
+    <!-- 光照 -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- 地面 10m×10m（添加摩擦参数） -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>10 10</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>10 10</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 木质围墙（添加摩擦参数） -->
+    <model name="fence">
+      <static>true</static>
+      <link name="link">
+        <!-- 北墙 -->
+        <collision name="n">
+          <pose>0 5 0.5 0 0 0</pose>
+          <geometry><box><size>10 0.2 1</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="nv">
+          <pose>0 5 0.5 0 0 0</pose>
+          <geometry><box><size>10 0.2 1</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+
+        <!-- 南墙 -->
+        <collision name="s">
+          <pose>0 -5 0.5 0 0 0</pose>
+          <geometry><box><size>10 0.2 1</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="sv">
+          <pose>0 -5 0.5 0 0 0</pose>
+          <geometry><box><size>10 0.2 1</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+
+        <!-- 东墙 -->
+        <collision name="e">
+          <pose>5 0 0.5 0 0 0</pose>
+          <geometry><box><size>0.2 10 1</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="ev">
+          <pose>5 0 0.5 0 0 0</pose>
+          <geometry><box><size>0.2 10 1</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+
+        <!-- 西墙 -->
+        <collision name="w">
+          <pose>-5 0 0.5 0 0 0</pose>
+          <geometry><box><size>0.2 10 1</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="wv">
+          <pose>-5 0 0.5 0 0 0</pose>
+          <geometry><box><size>0.2 10 1</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===================== 家具 ===================== -->
+
+    <!-- 柜子1（添加摩擦） -->
+    <model name="cab1">
+      <static>true</static>
+      <pose>-4 3 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="c">
+          <geometry><box><size>0.8 0.5 1.2</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="v">
+          <geometry><box><size>0.8 0.5 1.2</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 柜子2（添加摩擦） -->
+    <model name="cab2">
+      <static>true</static>
+      <pose>4 -3 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="c">
+          <geometry><box><size>0.8 0.5 1.2</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="v">
+          <geometry><box><size>0.8 0.5 1.2</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 床（添加摩擦） -->
+    <model name="bed">
+      <static>true</static>
+      <pose>0 -3.5 0.3 0 0 0</pose>
+      <link name="link">
+        <collision name="c">
+          <geometry><box><size>1.8 1.0 0.6</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="v">
+          <geometry><box><size>1.8 1.0 0.6</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 沙发（添加摩擦，并补全坐垫碰撞体） -->
+    <model name="sofa2">
+      <static>true</static>
+      <pose>0.0 4.0 0.3 0 0 1.57</pose>
+      <link name="link">
+        <collision name="base_collision">
+          <geometry><box><size>0.9 0.7 0.4</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="base_visual">
+          <geometry><box><size>0.9 0.7 0.4</size></box></geometry>
+          <material>
+            <ambient>0.55 0.27 0.12 1</ambient>
+            <diffuse>0.65 0.35 0.18 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+
+        <collision name="back_collision">
+          <pose>-0.3 0 0.35 0 0 0</pose>
+          <geometry><box><size>0.15 0.7 0.5</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="back_visual">
+          <pose>-0.3 0 0.35 0 0 0</pose>
+          <geometry><box><size>0.15 0.7 0.5</size></box></geometry>
+          <material>
+            <ambient>0.55 0.27 0.12 1</ambient>
+            <diffuse>0.65 0.35 0.18 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+
+        <collision name="left_arm_collision">
+          <pose>0 -0.38 0.25 0 0 0</pose>
+          <geometry><box><size>0.9 0.12 0.3</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="left_arm_visual">
+          <pose>0 -0.38 0.25 0 0 0</pose>
+          <geometry><box><size>0.9 0.12 0.3</size></box></geometry>
+          <material>
+            <ambient>0.55 0.27 0.12 1</ambient>
+            <diffuse>0.65 0.35 0.18 1</diffuse>
+          </material>
+        </visual>
+
+        <collision name="right_arm_collision">
+          <pose>0 0.38 0.25 0 0 0</pose>
+          <geometry><box><size>0.9 0.12 0.3</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="right_arm_visual">
+          <pose>0 0.38 0.25 0 0 0</pose>
+          <geometry><box><size>0.9 0.12 0.3</size></box></geometry>
+          <material>
+            <ambient>0.55 0.27 0.12 1</ambient>
+            <diffuse>0.65 0.35 0.18 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- 新增坐垫碰撞体，与视觉对应 -->
+        <collision name="cushion_collision">
+          <pose>0.1 0 0.15 0 0 0</pose>
+          <geometry><box><size>0.6 0.55 0.08</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="cushion_visual">
+          <pose>0.1 0 0.15 0 0 0</pose>
+          <geometry><box><size>0.6 0.55 0.08</size></box></geometry>
+          <material>
+            <ambient>0.65 0.35 0.18 1</ambient>
+            <diffuse>0.75 0.45 0.25 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+   
+    <!-- 板条箱 crate3（添加摩擦） -->
+    <model name="crate3">
+      <static>true</static>
+      <pose>1.0 2.0 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="edge1">
+          <pose>0.25 0 0.25 0 0 0</pose>
+          <geometry><box><size>0.05 0.52 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge2">
+          <pose>-0.25 0 0.25 0 0 0</pose>
+          <geometry><box><size>0.05 0.52 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge3">
+          <pose>0 0.25 0.25 0 0 0</pose>
+          <geometry><box><size>0.52 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge4">
+          <pose>0 -0.25 0.25 0 0 0</pose>
+          <geometry><box><size>0.52 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- 板条箱 crate2（添加摩擦） -->
+    <model name="crate2">
+      <static>true</static>
+      <pose>4.0 0.0 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="edge1">
+          <pose>0.25 0 0.25 0 0 0</pose>
+          <geometry><box><size>0.05 0.52 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge2">
+          <pose>-0.25 0 0.25 0 0 0</pose>
+          <geometry><box><size>0.05 0.52 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge3">
+          <pose>0 0.25 0.25 0 0 0</pose>
+          <geometry><box><size>0.52 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge4">
+          <pose>0 -0.25 0.25 0 0 0</pose>
+          <geometry><box><size>0.52 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- 板条箱 crate1（添加摩擦） -->
+    <model name="crate1">
+      <static>true</static>
+      <pose>-4.0 -1.0 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.5 0.5</size></box></geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="edge1">
+          <pose>0.25 0 0.25 0 0 0</pose>
+          <geometry><box><size>0.05 0.52 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge2">
+          <pose>-0.25 0 0.25 0 0 0</pose>
+          <geometry><box><size>0.05 0.52 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge3">
+          <pose>0 0.25 0.25 0 0 0</pose>
+          <geometry><box><size>0.52 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+        <visual name="edge4">
+          <pose>0 -0.25 0.25 0 0 0</pose>
+          <geometry><box><size>0.52 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.4 0.25 0.1 1</ambient>
+            <diffuse>0.5 0.35 0.15 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- ===================== 白色十字架墙体（新增） ===================== -->
+    <model name="cross_wall">
+      <static>true</static>
+      <!-- 放置在第二象限，中心 (-2.5, 2.5) 地面处 -->
+      <pose>-1.5 1.0 0.0 0 0 0</pose>
+      <link name="link">
+        <!-- 水平臂（沿 X 方向） -->
+        <collision name="horizontal_collision">
+          <pose>0 0 0.5 0 0 0</pose>
+          <geometry><box><size>2.0 0.2 1.0</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="horizontal_visual">
+          <pose>0 0 0.5 0 0 0</pose>
+          <geometry><box><size>2.0 0.2 1.0</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+
+        <!-- 垂直臂（沿 Y 方向） -->
+        <collision name="vertical_collision">
+          <pose>0 0 0.5 0 0 0</pose>
+          <geometry><box><size>0.2 2.0 1.0</size></box></geometry>
+          <surface>
+            <friction>
+              <ode><mu>1.0</mu><mu2>1.0</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="vertical_visual">
+          <pose>0 0 0.5 0 0 0</pose>
+          <geometry><box><size>0.2 2.0 1.0</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+	  <!-- ===================== 动态行人2（第四象限，红色上衣） ===================== -->
+  <model name="realistic_pedestrian2">
+    <static>false</static>
+    <pose>3 -2 1.02 0 0 0</pose>
+    <link name="body">
+      <collision name="torso_collision">
+        <pose>0 0 -0.12 0 0 0</pose>
+        <geometry><box><size>0.45 0.30 0.90</size></box></geometry>
+        <surface><contact><ode/></contact><bounce/><friction><ode/></friction></surface>
+        <laser_retro>1</laser_retro>
+        <max_contacts>10</max_contacts>
+      </collision>
+      <visual name="torso_visual">
+        <pose>0 0 -0.12 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><box><size>0.45 0.30 0.90</size></box></geometry>
+        <material>
+          <ambient>0.7 0.2 0.2 1</ambient>
+          <diffuse>0.8 0.3 0.3 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <collision name="head_collision">
+        <pose>0 0 0.53 0 0 0</pose>
+        <geometry><sphere><radius>0.17</radius></sphere></geometry>
+        <surface><contact><ode/></contact><bounce/><friction><ode/></friction></surface>
+        <laser_retro>1</laser_retro>
+        <max_contacts>10</max_contacts>
+      </collision>
+      <visual name="head_visual">
+        <pose>0 0 0.53 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><sphere><radius>0.17</radius></sphere></geometry>
+        <material>
+          <ambient>0.95 0.75 0.60 1</ambient>
+          <diffuse>0.98 0.80 0.65 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <visual name="hair_visual">
+        <pose>0 0 0.68 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><sphere><radius>0.10</radius></sphere></geometry>
+        <material>
+          <ambient>0.4 0.2 0.1 1</ambient>
+          <diffuse>0.45 0.25 0.15 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <collision name="left_leg_collision">
+        <pose>-0.10 0 -0.72 0 0 0</pose>
+        <geometry><box><size>0.14 0.14 0.70</size></box></geometry>
+        <laser_retro>1</laser_retro>
+      </collision>
+      <visual name="left_leg_visual">
+        <pose>-0.10 0 -0.72 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><box><size>0.14 0.14 0.70</size></box></geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1</ambient>
+          <diffuse>0.08 0.08 0.08 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="right_leg_collision">
+        <pose>0.10 0 -0.72 0 0 0</pose>
+        <geometry><box><size>0.14 0.14 0.70</size></box></geometry>
+        <laser_retro>1</laser_retro>
+      </collision>
+      <visual name="right_leg_visual">
+        <pose>0.10 0 -0.72 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><box><size>0.14 0.14 0.70</size></box></geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1</ambient>
+          <diffuse>0.08 0.08 0.08 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="left_arm_collision">
+        <pose>-0.32 0 0.02 0 0 0</pose>
+        <geometry><box><size>0.14 0.12 0.62</size></box></geometry>
+        <laser_retro>1</laser_retro>
+      </collision>
+      <visual name="left_arm_visual">
+        <pose>-0.32 0 0.02 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><box><size>0.14 0.12 0.62</size></box></geometry>
+        <material>
+          <ambient>0.95 0.75 0.60 1</ambient>
+          <diffuse>0.98 0.80 0.65 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <collision name="right_arm_collision">
+        <pose>0.32 0 0.02 0 0 0</pose>
+        <geometry><box><size>0.14 0.12 0.62</size></box></geometry>
+        <laser_retro>1</laser_retro>
+      </collision>
+      <visual name="right_arm_visual">
+        <pose>0.32 0 0.02 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><box><size>0.14 0.12 0.62</size></box></geometry>
+        <material>
+          <ambient>0.95 0.75 0.60 1</ambient>
+          <diffuse>0.98 0.80 0.65 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <visual name="left_shoe_visual">
+        <pose>-0.10 0.05 -1.05 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><box><size>0.16 0.22 0.08</size></box></geometry>
+        <material>
+          <ambient>0.9 0.9 0.9 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="right_shoe_visual">
+        <pose>0.10 0.05 -1.05 0 0 0</pose>
+        <cast_shadows>true</cast_shadows>
+        <geometry><box><size>0.16 0.22 0.08</size></box></geometry>
+        <material>
+          <ambient>0.9 0.9 0.9 1</ambient>
+          <diffuse>0.95 0.95 0.95 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="left_eye_white">
+        <pose>-0.06 0.12 0.58 0 0 0</pose>
+        <geometry><sphere><radius>0.04</radius></sphere></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+      <visual name="right_eye_white">
+        <pose>0.06 0.12 0.58 0 0 0</pose>
+        <geometry><sphere><radius>0.04</radius></sphere></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+      <visual name="left_eye_pupil">
+        <pose>-0.06 0.15 0.58 0 0 0</pose>
+        <geometry><sphere><radius>0.02</radius></sphere></geometry>
+        <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+      </visual>
+      <visual name="right_eye_pupil">
+        <pose>0.06 0.15 0.58 0 0 0</pose>
+        <geometry><sphere><radius>0.02</radius></sphere></geometry>
+        <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+      </visual>
+      <visual name="mouth">
+        <pose>0 0.10 0.48 0.1 0 0</pose>
+        <geometry><box><size>0.08 0.02 0.02</size></box></geometry>
+        <material><ambient>0.6 0.2 0.2 1</ambient><diffuse>0.6 0.2 0.2 1</diffuse></material>
+      </visual>
+    </link>
+    <plugin name="pedestrian_patrol2" filename="libpedestrian_patrol_plugin.so">
+      <start>3 -1 1.02 0 0 0</start>
+      <end>0 -2 1.02 0 0 0</end>
+      <speed>0.3</speed>
+      <pause>2.5</pause>
+    </plugin>
+  </model>
+    <!-- 俯视视角 -->
+    <gui>
+      <camera name="view">
+        <pose>0 0 12 0 1.5708 1.5708</pose>
+      </camera>
+    </gui>
+
+  </world>
+</sdf>

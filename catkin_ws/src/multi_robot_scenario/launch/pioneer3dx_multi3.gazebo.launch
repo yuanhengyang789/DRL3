@@ -1,0 +1,33 @@
+<launch>
+  <group ns="p3dx_0">
+    <include file="$(find multi_robot_scenario)/launch/pioneer3dx.gazebo.launch">
+      <arg name="robot_name" value="p3dx_0" />
+      <arg name="robot_namespace" value="p3dx_0" />
+      <arg name="publish_global_tf" value="true" />
+      <arg name="robot_position" value="-x -3 -y -3 -z 0.01 -R 0 -P 0 -Y 0.0" />
+    </include>
+  </group>
+
+  <group ns="p3dx_1">
+    <include file="$(find multi_robot_scenario)/launch/pioneer3dx.gazebo.launch">
+      <arg name="robot_name" value="p3dx_1" />
+      <arg name="robot_namespace" value="p3dx_1" />
+      <arg name="publish_global_tf" value="false" />
+      <arg name="robot_position" value="-x -3.9 -y -3.14 -z 0.01 -R 0 -P 0 -Y 0.0" />
+    </include>
+  </group>
+
+  <group ns="p3dx_2">
+    <include file="$(find multi_robot_scenario)/launch/pioneer3dx.gazebo.launch">
+      <arg name="robot_name" value="p3dx_2" />
+      <arg name="robot_namespace" value="p3dx_2" />
+      <arg name="publish_global_tf" value="false" />
+      <arg name="robot_position" value="-x -3.14 -y -3.9 -z 0.01 -R 0 -P 0 -Y 0.0" />
+    </include>
+  </group>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_p3dx0_odom" args="0 0 0 0 0 0 world p3dx_0/odom"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_p3dx1_odom" args="0 0 0 0 0 0 world p3dx_1/odom"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_p3dx2_odom" args="0 0 0 0 0 0 world p3dx_2/odom"/>
+</launch>
+

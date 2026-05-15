@@ -1,0 +1,12 @@
+<launch>
+    <env name="GAZEBO_PLUGIN_PATH" value="$(find multi_robot_scenario)/../../../devel/lib:$(optenv GAZEBO_PLUGIN_PATH)"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find multi_robot_scenario)/launch/TD31.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+      </include>
+</launch>
